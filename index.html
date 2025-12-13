@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Missão Segurança Digital</title>
+
+<style>
+/* ===========================
+   VARIÁVEIS DE TEMA
+   =========================== */
+body {
+  --cor-fundo: linear-gradient(135deg, #dceaff, #f3f8ff);
+  --cor-titulo: #004aad;
+  --cor-subtitulo: #00336d;
+  --cor-texto: #002a73;
+  --cor-card-bg: #ffffff;
+  --cor-card-sombra: rgba(0,0,0,0.15);
+  --cor-botao: #004aad;
+  --cor-botao-hover: #00377d;
+  --cor-barra-fundo: #cddfff;
+  --cor-barra-progresso: #4caf50;
+}
+
+/* Tema azul tecnológico (principal) */
+body.tema-azul {
+  --cor-fundo: linear-gradient(135deg, #dceaff, #f3f8ff);
+  --cor-titulo: #004aad;
+  --cor-subtitulo: #00336d;
+  --cor-texto: #002a73;
+  --cor-card-bg: #ffffff;
+  --cor-card-sombra: rgba(0,0,0,0.15);
+  --cor-botao: #004aad;
+  --cor-botao-hover: #00377d;
+  --cor-barra-fundo: #cddfff;
+  --cor-barra-progresso: #4caf50;
+}
+
+/* Tema alternativo – verde segurança */
+body.tema-verde {
+  --cor-fundo: linear-gradient(135deg, #dcfce7, #ecfdf5);
+  --cor-titulo: #15803d;
+  --cor-subtitulo: #166534;
+  --cor-texto: #065f46;
+  --cor-card-bg: #ffffff;
+  --cor-card-sombra: rgba(0,0,0,0.12);
+  --cor-botao: #15803d;
+  --cor-botao-hover: #166534;
+  --cor-barra-fundo: #bbf7d0;
+  --cor-barra-progresso: #16a34a;
+}
+
+/* Tema alternativo – roxo futurista */
+body.tema-roxo {
+  --cor-fundo: linear-gradient(135deg, #ede9fe, #f5f3ff);
+  --cor-titulo: #6d28d9;
+  --cor-subtitulo: #5b21b6;
+  --cor-texto: #4c1d95;
+  --cor-card-bg: #ffffff;
+  --cor-card-sombra: rgba(76,29,149,0.15);
+  --cor-botao: #6d28d9;
+  --cor-botao-hover: #5b21b6;
+  --cor-barra-fundo: #ddd6fe;
+  --cor-barra-progresso: #8b5cf6;
+}
+
+/* ===========================
+   BASE
+   =========================== */
+body {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  background: var(--cor-fundo);
+  padding: 20px;
+  text-align: center;
+}
+
+/* Títulos */
+h1 {
+  color: var(--cor-titulo);
+  font-size: 34px;
+  text-shadow: 2px 2px 0 rgba(188, 215, 255, 0.8);
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--cor-subtitulo);
+  margin-top: 0;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 25px;
+  color: var(--cor-subtitulo);
+}
+
+/* ===========================
+   ECRÃ INICIAL
+   =========================== */
+#startScreen {
+  max-width: 780px;
+  margin: 20px auto;
+  padding: 25px;
+  background: var(--cor-card-bg);
+  border-radius: 16px;
+  box-shadow: 0 0 14px var(--cor-card-sombra);
+}
+
+#start-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#start-text {
+  text-align: left;
+  font-size: 16px;
+  color: var(--cor-texto);
+}
+
+#start-text ul {
+  margin: 8px 0 0 18px;
+  padding: 0;
+}
+
+/* VanBerto's no ecrã inicial */
+#start-vanbertos {
+  width: 35%;
+  max-width: 230px;
+  margin: 0 auto;
+}
+
+/* Hover subtil no círculo */
+#start-vanbertos .vb-circle {
+  fill: rgba(147,197,253,0.35);
+  transition: fill 0.3s ease;
+}
+#start-vanbertos:hover .vb-circle {
+  fill: rgba(191,219,254,0.9);
+}
+
+/* Botões do ecrã inicial */
+.mode-buttons button {
+  margin: 5px;
+}
+
+/* ===========================
+   CAIXA DO JOGO
+   =========================== */
+#gameBox {
+  background: var(--cor-card-bg);
+  max-width: 780px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 0 14px var(--cor-card-sombra);
+  overflow: hidden;
+  display: none;
+}
+
+/* Topo: nível + vidas */
+#top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#levelLabel {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--cor-titulo);
+}
+
+#lives {
+  font-size: 22px;
+  color: #d62828;
+}
+
+/* Barra de progresso */
+#progress {
+  width: 100%;
+  height: 18px;
+  background: var(--cor-barra-fundo);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+#progress-bar {
+  height: 18px;
+  width: 0%;
+  background: var(--cor-barra-progresso);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+/* Layout pergunta + robô */
+#game-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+#question-area {
+  width: 65%;
+  text-align: left;
+}
+
+/* ===========================
+   VANBERTO'S – JOGO
+   =========================== */
+#vanberto-box {
+  width: 35%;
+  max-width: 230px;
+  margin-left: auto;
+  transition: 0.4s ease;
+}
+
+.vb-robot {
+  width: 100%;
+  animation: vbFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 14px #7dd3fc);
+}
+
+/* Círculo exterior */
+.vb-circle {
+  fill: rgba(147,197,253,0.35);
+  transition: fill 0.3s ease;
+}
+
+/* Pálpebra que pisca */
+.vb-eyelid {
+  transform-origin: 40px 23px;
+  animation: vbBlink 5s ease-in-out infinite;
+}
+
+/* Braço que acena */
+#vb-arm {
+  transform-origin: 63px 44px;
+  animation: waveVB 1.5s ease-in-out infinite;
+}
+
+/* Estado correto / errado */
+#vanberto-box.correctRobot .vb-circle {
+  fill: #bbf7d0; /* verde suave */
+}
+#vanberto-box.wrongRobot .vb-circle {
+  fill: #fecaca; /* vermelho suave */
+}
+
+#vanberto-box.correctRobot {
+  animation: dance 1s infinite;
+}
+#vanberto-box.wrongRobot {
+  animation: shake 0.4s ease 3;
+}
+
+/* ===========================
+   ANIMAÇÕES
+   =========================== */
+@keyframes vbFloat {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-10px); }
+}
+
+@keyframes vbBlink {
+  0%,92%,100% { transform: scaleY(0); }
+  95%        { transform: scaleY(1); }
+}
+
+@keyframes waveVB {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-18deg); }
+  50%  { transform: rotate(0deg); }
+  75%  { transform: rotate(-18deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Dança */
+@keyframes dance {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(6deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-6deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Tremer */
+@keyframes shake {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0px); }
+}
+
+/* ===========================
+   PERGUNTAS E OPÇÕES
+   =========================== */
+.question {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 18px;
+  color: var(--cor-texto);
+}
+
+.option {
+  padding: 12px;
+  margin: 8px 0;
+  background: #d9e9ff;
+  border: 2px solid var(--cor-titulo);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.option:hover {
+  background: #b7d7ff;
+  transform: scale(1.03);
+}
+
+.correct {
+  background: #b8ffc9 !important;
+  border-color: green !important;
+}
+
+.wrong {
+  background: #ffd2d2 !important;
+  border-color: #b30000 !important;
+}
+
+/* Feedback */
+#feedback {
+  margin-top: 12px;
+  font-size: 18px;
+  min-height: 30px;
+}
+
+/* ===========================
+   BOTÕES
+   =========================== */
+button {
+  padding: 10px 20px;
+  background: var(--cor-botao);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--cor-botao-hover);
+}
+
+#nextBtn,
+#restartBtn {
+  margin-top: 18px;
+}
+
+/* Responsivo */
+@media (max-width: 700px) {
+  #start-layout,
+  #game-content {
+    flex-direction: column;
+  }
+  #question-area, #vanberto-box {
+    width: 100%;
+  }
+  #question-area {
+    text-align: left;
+  }
+}
+</style>
+</head>
+
+<!-- Tema principal: azul -->
+<body class="tema-azul">
+
+<h1>🔐 Missão Segurança Digital</h1>
+<div class="subtitle">Professora Vanda Várzea</div>
+<div class="description">
+  Explora a segurança digital com o VanBerto's. Escolhe o modo de jogo, responde às perguntas
+  sobre Malware, Perigos Digitais e Cibercrime e completa a missão em segurança.
+</div>
+
+<!-- ===========================
+     ECRÃ INICIAL
+     =========================== -->
+<div id="startScreen">
+  <div id="start-layout">
+    <div id="start-text">
+      <p><strong>Bem-vindo/a à Missão Segurança Digital.</strong></p>
+      <p>Escolhe o modo de jogo:</p>
+      <ul>
+        <li><strong>Modo Fácil</strong> – perguntas introdutórias sobre segurança online.</li>
+        <li><strong>Modo Difícil</strong> – perguntas mais desafiantes e situações avançadas.</li>
+      </ul>
+      <p>O VanBerto's acompanha-te em todos os desafios e ajuda-te a pensar antes de clicar.</p>
+    </div>
+
+    <!-- VanBerto's no ecrã inicial -->
+    <div id="start-vanbertos">
+      <div class="vb-robot">
+        <svg viewBox="0 0 80 80">
+          <defs>
+            <linearGradient id="bodyGradStart" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e5f2ff"/>
+              <stop offset="100%" stop-color="#bfdbfe"/>
+            </linearGradient>
+            <linearGradient id="visorGradStart" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#22d3ee"/>
+              <stop offset="100%" stop-color="#38bdf8"/>
+            </linearGradient>
+          </defs>
+
+          <circle class="vb-circle" cx="40" cy="40" r="34" />
+          <rect x="18" y="30" width="44" height="32" rx="14" fill="url(#bodyGradStart)"/>
+          <circle cx="40" cy="46" r="7" fill="#9ca3af"/>
+
+          <rect x="22" y="10" width="36" height="26" rx="13" fill="url(#bodyGradStart)"/>
+          <rect x="26" y="15" width="28" height="16" rx="8" fill="url(#visorGradStart)"/>
+
+          <rect class="vb-eyelid" x="26" y="15" width="28" height="16" rx="8"
+                fill="#e5f2ff" opacity="0.9"/>
+
+          <circle cx="33" cy="23" r="2.5" fill="#0f172a"/>
+          <circle cx="47" cy="23" r="2.5" fill="#0f172a"/>
+
+          <line x1="40" y1="10" x2="40" y2="4" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="40" cy="3" r="2.5" fill="#38bdf8"/>
+
+          <rect x="12" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
+          <rect id="vb-arm" x="62" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
+
+          <rect x="22" y="58" width="12" height="8" rx="3" fill="#1f2937"/>
+          <rect x="46" y="58" width="12" height="8" rx="3" fill="#1f2937"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="mode-buttons">
+    <button onclick="startGame('easy')">🟢 Modo Fácil</button>
+    <button onclick="startGame('hard')">🔴 Modo Difícil</button>
+  </div>
+</div>
+
+<!-- ===========================
+     JOGO
+     =========================== -->
+<div id="gameBox">
+
+  <div id="top-row">
+    <div id="levelLabel">Nível: -</div>
+    <div id="lives">❤️❤️❤️</div>
+  </div>
+
+  <div id="progress">
+    <div id="progress-bar"></div>
+  </div>
+
+  <div id="game-content">
+    <div id="question-area"></div>
+
+    <!-- VanBerto's ao lado das respostas -->
+    <div id="vanberto-box">
+      <div class="vb-robot">
+        <svg viewBox="0 0 80 80">
+          <defs>
+            <linearGradient id="bodyGradGame" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e5f2ff"/>
+              <stop offset="100%" stop-color="#bfdbfe"/>
+            </linearGradient>
+            <linearGradient id="visorGradGame" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#22d3ee"/>
+              <stop offset="100%" stop-color="#38bdf8"/>
+            </linearGradient>
+          </defs>
+
+          <circle class="vb-circle" cx="40" cy="40" r="34" />
+          <rect x="18" y="30" width="44" height="32" rx="14" fill="url(#bodyGradGame)"/>
+          <circle cx="40" cy="46" r="7" fill="#9ca3af"/>
+
+          <rect x="22" y="10" width="36" height="26" rx="13" fill="url(#bodyGradGame)"/>
+          <rect x="26" y="15" width="28" height="16" rx="8" fill="url(#visorGradGame)"/>
+
+          <rect class="vb-eyelid" x="26" y="15" width="28" height="16" rx="8"
+                fill="#e5f2ff" opacity="0.9"/>
+
+          <circle cx="33" cy="23" r="2.5" fill="#0f172a"/>
+          <circle cx="47" cy="23" r="2.5" fill="#0f172a"/>
+
+          <line x1="40" y1="10" x2="40" y2="4" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="40" cy="3" r="2.5" fill="#38bdf8"/>
+
+          <rect x="12" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
+          <rect id="vb-arm" x="62" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
+
+          <rect x="22" y="58" width="12" height="8" rx="3" fill="#1f2937"/>
+          <rect x="46" y="58" width="12" height="8" rx="3" fill="#1f2937"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="feedback"></div>
+  <button id="nextBtn" onclick="nextQuestion()" style="display:none;">Próxima</button>
+  <!-- Reiniciar SEM display:none, sempre visível durante o jogo -->
+  <button id="restartBtn" onclick="restartGame()">🔄 Reiniciar</button>
+</div>
+
+<!-- Sons -->
+<audio id="soundCorrect" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+<audio id="soundWrong" src="https://actions.google.com/sounds/v1/cartoon/metal_twang.ogg"></audio>
+<audio id="soundWin" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
+
+<script>
+let mode = "easy";
+let currentQuestions = [];
+let questionIndex = 0;
+let lives = 3;
+
+/* PERGUNTAS – MODO FÁCIL */
+const questionsEasy = [
+  {
+    q: "Deves partilhar a tua palavra-passe com os teus amigos?",
+    options: ["Sim, são meus amigos", "Não, a palavra-passe é só tua", "Só com colegas da escola"],
+    correct: 1,
+    level: "Perigos Digitais"
+  },
+  {
+    q: "Vês um link estranho numa mensagem. O que fazes?",
+    options: ["Clicas logo", "Mostras a um adulto e não clicas", "Envias a todos os amigos"],
+    correct: 1,
+    level: "Perigos Digitais"
+  },
+  {
+    q: "Um desconhecido pede para falar contigo num jogo online. O que deves fazer?",
+    options: ["Aceitar e conversar", "Ignorar e contar a um adulto", "Dar o teu número de telemóvel"],
+    correct: 1,
+    level: "Perigos Digitais"
+  },
+  {
+    q: "Um vírus no computador pode…",
+    options: ["Apagar ficheiros", "Dar-te presentes", "Melhorar a internet"],
+    correct: 0,
+    level: "Malware"
+  },
+  {
+    q: "Partilhar fotos tuas com estranhos é…",
+    options: ["Seguro", "Perigoso", "Obrigatório"],
+    correct: 1,
+    level: "Perigos Digitais"
+  },
+  {
+    q: "Um SMS a dizer que ganhaste um prémio e pede para clicares num link pode ser…",
+    options: ["Smishing", "Um jogo", "Um amigo"],
+    correct: 0,
+    level: "Cibercrime"
+  }
+];
+
+/* PERGUNTAS – MODO DIFÍCIL */
+const questionsHard = [
+  {
+    q: "Um email falso a pedir os dados da tua conta chama-se…",
+    options: ["Phishing", "Smishing", "Grooming"],
+    correct: 0,
+    level: "Cibercrime"
+  },
+  {
+    q: "Um SMS com link perigoso para roubar dados é…",
+    options: ["Vishing", "Smishing", "Ransomware"],
+    correct: 1,
+    level: "Cibercrime"
+  },
+  {
+    q: "Um programa que se esconde e regista o que fazes no computador é…",
+    options: ["Spyware", "Adware", "Antivírus"],
+    correct: 0,
+    level: "Malware"
+  },
+  {
+    q: "Um vírus destrutivo pode…",
+    options: ["Apagar ficheiros e pastas", "Aumentar a memória", "Proteger o computador"],
+    correct: 0,
+    level: "Malware"
+  },
+  {
+    q: "Um adulto que ganha a confiança de uma criança online para a enganar está a praticar…",
+    options: ["Ciberbullying", "Grooming", "Phishing"],
+    correct: 1,
+    level: "Perigos Digitais"
+  },
+  {
+    q: "Um colega publica fotos tuas sem permissão. Isto é…",
+    options: ["Partilha insegura de dados", "Algo normal", "Smishing"],
+    correct: 0,
+    level: "Perigos Digitais"
+  }
+];
+
+/* INICIAR JOGO */
+function startGame(chosenMode) {
+  mode = chosenMode;
+  lives = 3;
+  questionIndex = 0;
+  currentQuestions = (mode === "easy") ? questionsEasy : questionsHard;
+
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("gameBox").style.display = "block";
+
+  updateLives();
+  loadQuestion();
+}
+
+/* CARREGAR PERGUNTA */
+function loadQuestion() {
+  const q = currentQuestions[questionIndex];
+
+  document.getElementById("levelLabel").textContent = "Nível: " + q.level;
+
+  const progress = ((questionIndex + 1) / currentQuestions.length) * 100;
+  document.getElementById("progress-bar").style.width = progress + "%";
+
+  let html = "<div class='question'>" + q.q + "</div>";
+  q.options.forEach((opt, i) => {
+    html += "<div class='option' data-index='" + i + "' onclick='checkAnswer(" + i + ", this)'>" + opt + "</div>";
+  });
+
+  document.getElementById("question-area").innerHTML = html;
+  document.getElementById("feedback").innerHTML = "";
+  document.getElementById("nextBtn").style.display = "none";
+
+  const roboBox = document.getElementById("vanberto-box");
+  roboBox.classList.remove("correctRobot", "wrongRobot");
+}
+
+/* ATUALIZAR VIDAS */
+function updateLives() {
+  document.getElementById("lives").innerHTML = "❤️".repeat(lives);
+}
+
+/* VERIFICAR RESPOSTA */
+function checkAnswer(i, element) {
+  const q = currentQuestions[questionIndex];
+  const roboBox = document.getElementById("vanberto-box");
+
+  document.querySelectorAll(".option").forEach(opt => opt.style.pointerEvents = "none");
+
+  if (i === q.correct) {
+    element.classList.add("correct");
+    document.getElementById("feedback").innerHTML = "Resposta correta. Muito bem! ✅";
+    document.getElementById("soundCorrect").play();
+    roboBox.classList.remove("wrongRobot");
+    roboBox.classList.add("correctRobot");
+  } else {
+    element.classList.add("wrong");
+    document.getElementById("feedback").innerHTML = "Resposta incorreta. Tenta novamente. ❌";
+    document.getElementById("soundWrong").play();
+    roboBox.classList.remove("correctRobot");
+    roboBox.classList.add("wrongRobot");
+    lives--;
+    updateLives();
+    if (lives <= 0) {
+      endGame(false);
+      return;
+    }
+  }
+
+  document.querySelectorAll(".option").forEach(opt => {
+    if (Number(opt.dataset.index) === q.correct) {
+      opt.classList.add("correct");
+    }
+  });
+
+  document.getElementById("nextBtn").style.display = "inline-block";
+}
+
+/* PRÓXIMA PERGUNTA */
+function nextQuestion() {
+  questionIndex++;
+  if (questionIndex >= currentQuestions.length) {
+    endGame(true);
+  } else {
+    loadQuestion();
+  }
+}
+
+/* FIM DO JOGO */
+function endGame(win) {
+  const feedback = document.getElementById("feedback");
+  const questionArea = document.getElementById("question-area");
+  const nextBtn = document.getElementById("nextBtn");
+
+  nextBtn.style.display = "none";
+
+  if (win) {
+    document.getElementById("soundWin").play();
+    questionArea.innerHTML = "<h2>🏆 Missão concluída!</h2><p>Completaste todas as perguntas do modo " 
+      + (mode === "easy" ? "Fácil" : "Difícil") + ".</p>";
+    feedback.innerHTML = "Usa o botão \"Reiniciar\" para voltar ao início e escolher outro modo.";
+  } else {
+    questionArea.innerHTML = "<h2>😢 Ficaste sem vidas.</h2>";
+    feedback.innerHTML = "Clica em \"Reiniciar\" para voltar ao início e tentar novamente.";
+  }
+}
+
+/* REINICIAR – VOLTAR AO ECRÃ INICIAL */
+function restartGame() {
+  document.getElementById("gameBox").style.display = "none";
+  document.getElementById("startScreen").style.display = "block";
+}
+</script>
+
+</body>
+</html>
