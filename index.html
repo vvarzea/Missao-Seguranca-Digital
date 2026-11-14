@@ -85,6 +85,21 @@ body{min-height:100vh;min-height:100dvh;display:flex;padding:clamp(10px,3vw,24px
 .nmi{font:inherit;font-weight:900;font-size:20px;padding:10px 14px;border:3px solid var(--ink);border-radius:16px;width:100%;text-align:center;color:var(--ink);margin-bottom:14px}
 .nmi:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
 .who{display:block;margin:6px auto 0}
+.lab{display:flex;align-items:center;gap:10px;padding:2px 16px 10px;font-family:'Fredoka One',cursive;font-size:clamp(12px,3vw,14px);letter-spacing:1.4px;text-transform:uppercase}
+.lab::before,.lab::after{content:'';flex:1;border-top:3px dotted rgba(30,27,75,.28)}
+.themes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:0 16px 20px}
+.mode.th .em{width:48px;height:48px;font-size:24px}.mode.th .nm{font-size:clamp(15px,4vw,17px);text-align:center}
+.tag{align-self:center;font-family:'Fredoka One',cursive;font-size:13px;background:var(--sun);border:2px solid var(--ink);box-shadow:0 2px 0 var(--ink);border-radius:999px;padding:1px 12px}
+.msgbox{margin:0 0 14px;padding:12px 14px;background:#e8f2ff;border:3px solid var(--ink);border-radius:18px 18px 18px 4px;box-shadow:0 4px 0 var(--ink);font-weight:900;line-height:1.4;text-align:left;word-break:break-word;font-size:clamp(14px,3.8vw,16px)}
+.opts.two{grid-template-columns:repeat(2,1fr)}
+.mbox.wide{max-width:780px}
+.mbox img{display:block;width:100%;border:3px solid var(--ink);border-radius:12px;margin:8px 0 12px}
+.rv{text-align:left;border:3px solid var(--ink);border-radius:16px;padding:10px 12px;margin:10px 0;font-family:'Nunito',sans-serif;font-weight:900;line-height:1.35;font-size:15px}
+.rv .rq{font-family:'Fredoka One',cursive;font-weight:400;font-size:17px;margin-bottom:4px}
+.rv .rm{background:#e8f2ff;border:2px solid var(--ink);border-radius:10px;padding:6px 8px;margin:4px 0;font-size:14px;word-break:break-word}
+.rv .no{color:#b91c1c}.rv .yes{color:#047857}
+#dipPrint{display:none}
+@media print{body.pdip>*{display:none!important}body.pdip>#dipPrint{display:block!important}#dipPrint img{width:100%}@page{size:A4 landscape;margin:8mm}}
 .stars{font-size:40px;letter-spacing:6px;margin:6px 0}
 .mbox .btn{margin:4px}
 .cf{position:fixed;top:-40px;font-style:normal;font-size:28px;z-index:300;pointer-events:none;animation:fall 2.2s linear forwards}
@@ -99,24 +114,31 @@ body{min-height:100vh;min-height:100dvh;display:flex;padding:clamp(10px,3vw,24px
    <div class="hero-icon">🔐</div>
    <h1 class="title">Missão Segurança Digital</h1>
    <div class="sub">Professora Vanda Várzea</div>
-   <div class="badges"><span class="badge">❓ 12 perguntas</span><span class="badge">❤️ 3 vidas</span><span class="badge">🦠 Malware</span><span class="badge">🕵️ Cibercrime</span></div>
+   <div class="badges"><span class="badge">❓ 20 perguntas</span><span class="badge">❤️ 3 vidas</span><span class="badge">🦠 Malware</span><span class="badge">🕵️ Cibercrime</span></div>
   </div>
   <p class="intro">Responde às perguntas sobre Malware, Perigos Digitais e Cibercrime e completa a missão com o VanBerto's. Pensa antes de clicar!</p>
   <button class="btn who" id="who"></button>
   <div class="modes">
-   <button class="mode" id="mEasy" data-m="easy"><span class="em">🟢</span><span class="nm">Modo Fácil</span><span class="ds">Perguntas introdutórias sobre segurança online.</span><span class="best" id="bEasy"></span></button>
-   <button class="mode hard" id="mHard" data-m="hard"><span class="em">🔴</span><span class="nm">Modo Difícil</span><span class="ds">Perguntas mais desafiantes e situações avançadas.</span><span class="best" id="bHard"></span></button>
+   <button class="mode" data-m="easy"><span class="em">🟢</span><span class="nm">Modo Fácil</span><span class="ds">10 perguntas introdutórias sobre segurança online.</span><span class="best"></span></button>
+   <button class="mode hard" data-m="hard"><span class="em">🔴</span><span class="nm">Modo Difícil</span><span class="ds">10 perguntas mais desafiantes e situações avançadas.</span><span class="best"></span></button>
+  </div>
+  <div class="lab">Treinar um tema</div>
+  <div class="themes">
+   <button class="mode th" data-m="t:Malware" style="--gc:#ff9f1c"><span class="em">🦠</span><span class="nm">Malware</span><span class="best"></span></button>
+   <button class="mode th" data-m="t:Perigos Digitais" style="--gc:#4cc9f0"><span class="em">⚠️</span><span class="nm">Perigos Digitais</span><span class="best"></span></button>
+   <button class="mode th" data-m="t:Cibercrime" style="--gc:#a78bfa"><span class="em">🕵️</span><span class="nm">Cibercrime</span><span class="best"></span></button>
   </div>
   <div class="foot"><span>© Prof.ª Vanda Várzea</span></div>
  </div>
  <div class="card" id="play" hidden>
   <div class="bar"><button class="btn" id="back" aria-label="Voltar ao início">⬅ Início</button><div class="ttl" id="lvl">Nível</div><div class="lives" id="lives" aria-live="polite"></div></div>
   <div class="pips" id="pips"></div>
-  <div class="pbody"><div class="qq" id="qt"></div><div class="opts" id="qo"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn big nx" id="nx" hidden>Próxima ▶</button></div>
+  <div class="pbody"><div class="tag" id="tag" hidden></div><div class="qq" id="qt"></div><div class="msgbox" id="qm" hidden></div><div class="opts" id="qo"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn big nx" id="nx" hidden>Próxima ▶</button></div>
  </div>
 </div>
 <div class="vb-free"><div class="vb-free-bubble pop" id="vbMsg">Olá! Vamos à missão?</div><canvas id="vbCv" width="288" height="288" role="img" aria-label="VanBerto's"></canvas><div class="vb-free-name">VanBerto's</div></div>
 <div class="modal" id="modal" hidden></div>
+<div id="dipPrint"></div>
 <script>
 'use strict';
 const $=s=>document.querySelector(s),pick=a=>a[Math.random()*a.length|0];
@@ -275,26 +297,37 @@ function vbFrame(blink,step,armsUp){
   return _vbFrames[k]=c;
 }
 
-/* [pergunta, certa, errada1, errada2, nível, explicação] */
+/* mc(pergunta, certa, errada, errada, tema, explicação) · tf(afirmação, éVerdade, tema, explicação) · ms(mensagem, éSegura, tema, explicação) */
+const mc=(...a)=>({mc:1,q:a[0],o:[a[1],a[2],a[3]],l:a[4],e:a[5]});
+const tf=(q,v,l,e)=>({k:'tf',q,o:['Verdadeiro','Falso'],c:v?0:1,l,e});
+const ms=(m,s,l,e)=>({k:'ms',q:'Esta mensagem é segura ou suspeita?',m,o:['Segura','Suspeita'],c:s?0:1,l,e});
 const Q={
 easy:[
-["Deves partilhar a tua palavra-passe com os teus amigos?","Não, a palavra-passe é só tua","Sim, são meus amigos","Só com colegas da escola","Perigos Digitais","Mesmo os amigos podem usar a tua conta sem querer ou zangar-se contigo mais tarde. A palavra-passe é secreta."],
-["Vês um link estranho numa mensagem. O que fazes?","Mostras a um adulto e não clicas","Clicas logo","Envias a todos os amigos","Perigos Digitais","Um link estranho pode instalar vírus ou roubar dados. Na dúvida, não cliques e pede ajuda."],
-["Um desconhecido pede para falar contigo num jogo online. O que deves fazer?","Ignorar e contar a um adulto","Aceitar e conversar","Dar o teu número de telemóvel","Perigos Digitais","Online ninguém garante que é quem diz ser. Não respondas e conta a um adulto de confiança."],
-["Um vírus no computador pode…","Apagar ficheiros","Dar-te presentes","Melhorar a internet","Malware","Um vírus é um programa malicioso: pode apagar, estragar ou roubar ficheiros."],
-["Partilhar fotos tuas com estranhos é…","Perigoso","Seguro","Obrigatório","Perigos Digitais","Uma foto partilhada pode ser copiada e usada por outras pessoas, e é muito difícil de apagar."],
-["Um SMS a dizer que ganhaste um prémio e pede para clicares num link pode ser…","Smishing","Um jogo","Um amigo","Cibercrime","Smishing é o phishing por SMS: promete prémios para te levar a um link falso."]
+mc("Deves partilhar a tua palavra-passe com os teus amigos?","Não, a palavra-passe é só tua","Sim, são meus amigos","Só com colegas da escola","Perigos Digitais","Mesmo os amigos podem usar a tua conta sem querer ou zangar-se contigo mais tarde. A palavra-passe é secreta."),
+mc("Vês um link estranho numa mensagem. O que fazes?","Mostras a um adulto e não clicas","Clicas logo","Envias a todos os amigos","Perigos Digitais","Um link estranho pode instalar vírus ou roubar dados. Na dúvida, não cliques e pede ajuda."),
+mc("Um desconhecido pede para falar contigo num jogo online. O que deves fazer?","Ignorar e contar a um adulto","Aceitar e conversar","Dar o teu número de telemóvel","Perigos Digitais","Online ninguém garante que é quem diz ser. Não respondas e conta a um adulto de confiança."),
+mc("Um vírus no computador pode…","Apagar ficheiros","Dar-te presentes","Melhorar a internet","Malware","Um vírus é um programa malicioso: pode apagar, estragar ou roubar ficheiros."),
+mc("Partilhar fotos tuas com estranhos é…","Perigoso","Seguro","Obrigatório","Perigos Digitais","Uma foto partilhada pode ser copiada e usada por outras pessoas, e é muito difícil de apagar."),
+mc("Um SMS a dizer que ganhaste um prémio e pede para clicares num link pode ser…","Smishing","Um jogo","Um amigo","Cibercrime","Smishing é o phishing por SMS: promete prémios para te levar a um link falso."),
+tf("Podes usar a mesma palavra-passe em todas as tuas contas.",false,"Perigos Digitais","Se descobrirem uma palavra-passe, ficam com acesso a todas as contas. Usa uma diferente em cada conta."),
+tf("O antivírus ajuda a proteger o computador.",true,"Malware","O antivírus deteta e remove muitos vírus. Tem de estar atualizado e não dispensa o teu bom senso."),
+ms("Parabéns! Ganhaste um telemóvel novo! Clica aqui e escreve a tua palavra-passe: http://premio-gratis.xyz",false,"Cibercrime","Um prémio que não pediste, um link estranho e um pedido de palavra-passe são sinais clássicos de burla."),
+ms("Professora: Amanhã há teste de Informática. Estuda as páginas 10 a 12. Bom estudo!",true,"Perigos Digitais","Vem de alguém que conheces e não pede dados, nem traz links ou pressa. Mesmo assim, se tiveres dúvidas, confirma na escola.")
 ],
 hard:[
-["Um email falso a pedir os dados da tua conta chama-se…","Phishing","Smishing","Grooming","Cibercrime","Phishing é o email falso que imita uma entidade verdadeira para roubar dados. Smishing é por SMS."],
-["Um SMS com link perigoso para roubar dados é…","Smishing","Vishing","Ransomware","Cibercrime","SMS + phishing = smishing. O vishing faz-se por chamada de voz."],
-["Um programa que se esconde e regista o que fazes no computador é…","Spyware","Adware","Antivírus","Malware","O spyware espia em segredo. O adware mostra publicidade e o antivírus é que te protege."],
-["Um vírus destrutivo pode…","Apagar ficheiros e pastas","Aumentar a memória","Proteger o computador","Malware","Os vírus destrutivos apagam ou corrompem dados. Faz cópias de segurança dos ficheiros importantes."],
-["Um adulto que ganha a confiança de uma criança online para a enganar está a praticar…","Grooming","Ciberbullying","Phishing","Perigos Digitais","No grooming o agressor finge ser amigo para manipular a criança. Se acontecer, conta a um adulto."],
-["Um colega publica fotos tuas sem permissão. Isto é…","Partilha insegura de dados","Algo normal","Smishing","Perigos Digitais","Precisas de dar autorização para publicarem imagens tuas. Pede que as apaguem e fala com um adulto."]
+mc("Um email falso a pedir os dados da tua conta chama-se…","Phishing","Smishing","Grooming","Cibercrime","Phishing é o email falso que imita uma entidade verdadeira para roubar dados. Smishing é por SMS."),
+mc("Um SMS com link perigoso para roubar dados é…","Smishing","Vishing","Ransomware","Cibercrime","SMS + phishing = smishing. O vishing faz-se por chamada de voz."),
+mc("Um programa que se esconde e regista o que fazes no computador é…","Spyware","Adware","Antivírus","Malware","O spyware espia em segredo. O adware mostra publicidade e o antivírus é que te protege."),
+mc("Um vírus destrutivo pode…","Apagar ficheiros e pastas","Aumentar a memória","Proteger o computador","Malware","Os vírus destrutivos apagam ou corrompem dados. Faz cópias de segurança dos ficheiros importantes."),
+mc("Um adulto que ganha a confiança de uma criança online para a enganar está a praticar…","Grooming","Ciberbullying","Phishing","Perigos Digitais","No grooming o agressor finge ser amigo para manipular a criança. Se acontecer, conta a um adulto."),
+mc("Um colega publica fotos tuas sem permissão. Isto é…","Partilha insegura de dados","Algo normal","Smishing","Perigos Digitais","Precisas de dar autorização para publicarem imagens tuas. Pede que as apaguem e fala com um adulto."),
+tf("Uma rede Wi-Fi pública e gratuita é sempre segura para fazer compras online.",false,"Perigos Digitais","Nas redes públicas outras pessoas podem espiar o que fazes. Evita compras e bancos e usa os dados móveis."),
+tf("O ransomware bloqueia os teus ficheiros e pede dinheiro para os libertar.",true,"Malware","É isso mesmo. A melhor defesa são as cópias de segurança guardadas num sítio à parte."),
+ms("Banco: A sua conta foi bloqueada. Confirme já os seus dados em http://banco-seguro-pt.top/login ou perde o acesso em 24 horas.",false,"Cibercrime","Pressa, link estranho e pedido de dados: é phishing. Os bancos nunca pedem dados por mensagem."),
+ms("Aviso da escola: A reunião de pais é na quinta-feira às 18h, na sala 12.",true,"Perigos Digitais","Não pede dados, não traz links nem pressa. Se tiveres dúvidas, confirma com a escola por outro meio.")
 ]};
 const LET='ABC',COL={"Malware":"#ff9f1c","Perigos Digitais":"#4cc9f0","Cibercrime":"#a78bfa"};
-let NAME='',snd=true,AC=null,bt=0,ft=0,mode='easy',qs=[],qi=0,lives=3,ok=0,busy=false,B={};
+let NAME='',snd=true,AC=null,bt=0,ft=0,mode='easy',qs=[],qi=0,lives=3,ok=0,busy=false,B={},ERR=[],RES={};
 try{B=JSON.parse(localStorage.getItem('vbsd')||'{}');snd=localStorage.getItem('vbsd_s')!=='0';NAME=localStorage.getItem('vbsd_n')||'';}catch(e){}
 function tone(f,s,d,v){if(!snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime+s,o=AC.createOscillator(),g=AC.createGain();o.type='square';o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(v,t);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d);}catch(e){}}
 const sOk=()=>{tone(660,0,.08,.2);tone(880,.08,.14,.18);},sBad=()=>tone(130,0,.18,.15),sWin=()=>{tone(523,0,.18,.2);tone(659,.18,.18,.2);tone(784,.36,.18,.2);tone(1047,.54,.25,.2);};
@@ -310,30 +343,63 @@ function face(m){const c=$('#vbCv').getContext('2d');c.clearRect(0,0,288,288);c.
 function vb(m,f,keep){const b=$('#vbMsg');b.textContent=m;b.classList.remove('hide','pop');void b.offsetWidth;b.classList.add('pop');clearTimeout(bt);if(!keep)bt=setTimeout(()=>b.classList.add('hide'),5200);face(f);}
 function fx(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;for(let i=0;i<26;i++){const s=document.createElement('i');s.className='cf';s.textContent=pick(['⭐','🎉','✨','🎈','🔐']);s.style.cssText='left:'+Math.random()*100+'vw;animation-delay:'+Math.random()*.6+'s';document.body.append(s);setTimeout(()=>s.remove(),2900);}}
 const stars=n=>'★'.repeat(n)+'☆'.repeat(3-n);
-function paintHome(){['easy','hard'].forEach(m=>{const n=B[m];$('#b'+(m==='easy'?'Easy':'Hard')).textContent=n!=null?'Melhor: '+stars(n):'';});}
-function start(m){if(!NAME){nameModal();return;}mode=m;qs=sh(Q[m]).map(q=>{const o=sh(q.slice(1,4));return{q:q[0],o,c:o.indexOf(q[1]),l:q[4],e:q[5]};});qi=0;lives=3;ok=0;$('#home').hidden=true;$('#play').hidden=false;$('#modal').hidden=true;
+function paintHome(){document.querySelectorAll('.mode').forEach(b=>{const n=B[b.dataset.m];b.querySelector('.best').textContent=n!=null?'Melhor: '+stars(n):'';});}
+const modeLabel=()=>mode==='easy'?'Modo Fácil':mode==='hard'?'Modo Difícil':'tema '+mode.slice(2);
+const TAG={tf:'✅❌ Verdadeiro ou falso?',ms:'📱 Mensagem recebida'};
+function start(m){if(!NAME){nameModal();return;}mode=m;
+ const pool=m==='easy'?Q.easy:m==='hard'?Q.hard:Q.easy.concat(Q.hard).filter(q=>q.l===m.slice(2));
+ qs=sh(pool).slice(0,10).map(q=>{if(!q.mc)return q;const o=sh(q.o);return Object.assign({},q,{o,c:o.indexOf(q.o[0])});});
+ qi=0;lives=3;ok=0;ERR=[];$('#home').hidden=true;$('#play').hidden=false;$('#modal').hidden=true;
  $('#pips').innerHTML=qs.map(()=>'<i class="pip"></i>').join('');vb('Vamos a isto, '+NAME+'! Pensa antes de clicar.','wink');load();}
 function paintLives(){$('#lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives);$('#lives').setAttribute('aria-label',lives+' vidas');}
 function load(){busy=false;const q=qs[qi];$('#lvl').textContent=q.l;$('#play').style.setProperty('--pc',COL[q.l]||'#4cc9f0');
  document.querySelectorAll('.pip').forEach((p,i)=>{if(!p.classList.contains('ok')&&!p.classList.contains('no'))p.classList.toggle('on',i===qi);});
- $('#qt').textContent=q.q;$('#qo').innerHTML=q.o.map((t,i)=>'<button class="o" data-i="'+i+'"><i>'+LET[i]+'</i><span></span></button>').join('');
+ $('#tag').hidden=!q.k;$('#tag').textContent=TAG[q.k]||'';
+ $('#qt').textContent=q.q;$('#qm').hidden=!q.m;$('#qm').textContent=q.m||'';
+ $('#qo').className='opts'+(q.o.length===2?' two':'');
+ $('#qo').innerHTML=q.o.map((t,i)=>'<button class="o" data-i="'+i+'"><i>'+LET[i]+'</i><span></span></button>').join('');
  document.querySelectorAll('#qo .o span').forEach((s,i)=>s.textContent=q.o[i]);
  $('#fb').textContent='';$('#nx').hidden=true;paintLives();}
 $('#qo').onclick=e=>{const b=e.target.closest('.o');if(!b||busy)return;busy=true;const q=qs[qi],i=+b.dataset.i,pip=document.querySelectorAll('.pip')[qi];
  document.querySelectorAll('#qo .o').forEach((x,k)=>{x.disabled=true;if(k===q.c)x.classList.add('right');});
  pip.classList.remove('on');
- if(i===q.c){ok++;pip.classList.add('ok');sOk();$('#fb').innerHTML='<b>Resposta correta! ✅</b>'+q.e;vb(pick(['Muito bem!','Boa! És um/a craque da segurança!','Certo! Continua assim!']),'happy');}
- else{b.classList.add('bad');pip.classList.add('no');lives--;paintLives();sBad();$('#fb').innerHTML='<b>Resposta incorreta ❌</b>'+q.e;vb(pick(['Não faz mal, aprende com o erro.','Quase! Lê a explicação.']),'sad');if(!matchMedia('(prefers-reduced-motion:reduce)').matches){const c=$('#play');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');}}
+ if(i===q.c){ok++;pip.classList.add('ok');sOk();$('#fb').innerHTML='<b>Resposta correta! ✅</b>'+esc(q.e);vb(pick(['Muito bem!','Boa! És um/a craque da segurança!','Certo! Continua assim!']),'happy');}
+ else{b.classList.add('bad');pip.classList.add('no');lives--;paintLives();sBad();ERR.push({q:q.q,m:q.m,pick:q.o[i],right:q.o[q.c],e:q.e});$('#fb').innerHTML='<b>Resposta incorreta ❌</b>'+esc(q.e);vb(pick(['Não faz mal, aprende com o erro.','Quase! Lê a explicação.']),'sad');if(!matchMedia('(prefers-reduced-motion:reduce)').matches){const c=$('#play');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');}}
  const last=lives<=0||qi===qs.length-1;$('#nx').textContent=last?'Ver resultado 🏁':'Próxima ▶';$('#nx').hidden=false;$('#nx').focus({preventScroll:true});};
 $('#nx').onclick=()=>{if(lives<=0||qi>=qs.length-1)return end();qi++;load();};
-function end(){const win=lives>0,n=win?(ok===qs.length?3:ok>=qs.length-2?2:1):0;
+function end(){const win=lives>0,n=win?(ok===qs.length?3:ok>=qs.length-2?2:1):0;RES={win,n};
  if(win){B[mode]=Math.max(B[mode]||0,n);try{localStorage.setItem('vbsd',JSON.stringify(B));}catch(e){}sWin();fx();vb(n===3?'Missão perfeita, '+NAME+'! Parabéns! 🎉':'Missão concluída, '+NAME+'! 🎉','happy',true);}else{vb('Ficaste sem vidas, '+NAME+'. Tenta outra vez!','sad',true);}
- const nm=mode==='easy'?'Fácil':'Difícil';
- $('#modal').innerHTML='<div class="mbox"><h2>'+(win?'🏆 Missão concluída!':'😢 Sem vidas')+'</h2><div class="stars" aria-label="'+n+' de 3 estrelas">'+stars(n)+'</div><p>'+(win?'Parabéns, ':'Não desistas, ')+esc(NAME)+'! Modo '+nm+': acertaste '+ok+' de '+qs.length+' perguntas.</p><button class="btn big" id="ag">🔄 Jogar outra vez</button><button class="btn" id="mn">🏠 Início</button><br><div class="sig">© Prof.ª Vanda Várzea</div></div>';
- $('#modal').hidden=false;$('#ag').onclick=()=>start(mode);$('#mn').onclick=home;$('#ag').focus();}
+ resultModal();}
+function resultModal(){const {win,n}=RES;
+ $('#modal').innerHTML='<div class="mbox"><h2>'+(win?'🏆 Missão concluída!':'😢 Sem vidas')+'</h2><div class="stars" aria-label="'+n+' de 3 estrelas">'+stars(n)+'</div><p>'+(win?'Parabéns, ':'Não desistas, ')+esc(NAME)+'! '+esc(modeLabel())+': acertaste '+ok+' de '+qs.length+' perguntas.</p>'
+ +(win?'<button class="btn big" id="dp">🎓 Diploma</button><br>':'')
+ +(ERR.length?'<button class="btn" id="rv">📝 Rever os erros ('+ERR.length+')</button>':'')
+ +'<button class="btn" id="ag">🔄 Jogar outra vez</button><button class="btn" id="mn">🏠 Início</button><br><div class="sig">© Prof.ª Vanda Várzea</div></div>';
+ $('#modal').hidden=false;$('#ag').onclick=()=>start(mode);$('#mn').onclick=home;
+ if($('#dp'))$('#dp').onclick=showDip;if($('#rv'))$('#rv').onclick=review;($('#dp')||$('#ag')).focus();}
+function review(){$('#modal').innerHTML='<div class="mbox"><h2>📝 Rever os erros</h2>'+ERR.map(r=>'<div class="rv"><div class="rq">'+esc(r.q)+'</div>'+(r.m?'<div class="rm">'+esc(r.m)+'</div>':'')+'<div class="no">✗ Escolheste: '+esc(r.pick)+'</div><div class="yes">✓ Certa: '+esc(r.right)+'</div><div>'+esc(r.e)+'</div></div>').join('')+'<button class="btn big" id="bk">⬅ Voltar</button></div>';$('#bk').onclick=resultModal;$('#bk').focus();}
+function dipImg(cb){const W=1200,H=850,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d'),INK='#1e1b4b';
+ const draw=()=>{x.fillStyle='#fff8e7';x.fillRect(0,0,W,H);x.lineWidth=14;x.strokeStyle=INK;x.strokeRect(30,30,W-60,H-60);x.lineWidth=8;x.strokeStyle='#4cc9f0';x.strokeRect(52,52,W-104,H-104);
+  x.textAlign='center';x.fillStyle=INK;x.font='88px "Fredoka One"';x.fillText('Diploma',W/2,170);
+  x.font='900 28px Nunito';x.fillStyle='#7c3aed';x.fillText("VANBERTO'S · MISSÃO SEGURANÇA DIGITAL",W/2,222);
+  x.fillStyle=INK;x.font='900 34px Nunito';x.fillText("O VanBerto's orgulha-se de entregar este diploma a",W/2,300);
+  let fs=96;x.font=fs+'px "Fredoka One"';while(x.measureText(NAME).width>W-260&&fs>40){fs-=4;x.font=fs+'px "Fredoka One"';}
+  x.fillStyle='#ff6b6b';x.fillText(NAME,W/2,410);x.strokeStyle=INK;x.lineWidth=4;x.beginPath();x.moveTo(250,436);x.lineTo(W-250,436);x.stroke();
+  x.fillStyle=INK;x.font='900 34px Nunito';x.fillText('que completou a missão no '+modeLabel()+',',W/2,500);x.fillText('acertou em '+ok+' de '+qs.length+' perguntas e aprendeu a navegar em segurança.',W/2,548);
+  x.font='80px sans-serif';x.fillStyle='#ffb703';x.fillText(stars(RES.n),W/2,650);
+  try{x.drawImage(vbFrame(false,-1,true),70,550,230,230);}catch(e){}
+  x.fillStyle=INK;x.font='900 26px Nunito';x.fillText(new Date().toLocaleDateString('pt-PT',{day:'numeric',month:'long',year:'numeric'}),560,775);
+  x.lineWidth=3;x.beginPath();x.moveTo(800,740);x.lineTo(1100,740);x.stroke();x.fillText('Professora Vanda Várzea',950,775);
+  cb(c.toDataURL('image/png'));};
+ try{Promise.all([document.fonts.load('80px "Fredoka One"'),document.fonts.load('900 30px Nunito')]).then(draw,draw);}catch(e){draw();}}
+function showDip(){dipImg(url=>{$('#modal').innerHTML='<div class="mbox wide"><h2>🎓 O teu diploma</h2><img src="'+url+'" alt="Diploma de '+esc(NAME)+'"><button class="btn big" id="dpr">🖨️ Imprimir</button><button class="btn" id="dsv">💾 Guardar</button><button class="btn" id="dbk">⬅ Voltar</button></div>';
+ $('#dpr').onclick=()=>{$('#dipPrint').innerHTML='<img src="'+url+'" alt="">';document.body.classList.add('pdip');setTimeout(()=>window.print(),60);};
+ $('#dsv').onclick=()=>{const a=document.createElement('a');a.href=url;a.download='Diploma-'+NAME.replace(/[^\p{L}\p{N}]+/gu,'-')+'.png';document.body.append(a);a.click();a.remove();};
+ $('#dbk').onclick=resultModal;});}
+addEventListener('afterprint',()=>document.body.classList.remove('pdip'));
 function home(){$('#modal').hidden=true;$('#play').hidden=true;$('#home').hidden=false;paintHome();vb('Escolhe o modo de jogo!',null);}
 $('#back').onclick=home;
-$('#mEasy').onclick=()=>start('easy');$('#mHard').onclick=()=>start('hard');
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>start(b.dataset.m));
 paintSnd();paintWho();paintHome();face();if(!NAME)nameModal();else vb('Olá, '+NAME+'! Vamos à missão?',null);
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
